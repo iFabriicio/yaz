@@ -2,34 +2,56 @@ import React, { useState, useRef, useEffect } from "react";
 import "./reproductor2.css";
 
 export default function Reproductor() {
+  const base = process.env.PUBLIC_URL;
 
-  // 🎵 Lista con artista y nombre visible de cada tema
   const songs = [
-    { src: "/music/Junior H - LA CHERRY.mp3", artist: "Junior H", title: "LA CHERRY" },
-    { src: "/music/Junior H - ROCKSTAR.mp3", artist: "Junior H", title: "ROCKSTAR" },
-    { src: "/music/junior h - SE AMERITA.mp3", artist: "Junior H", title: "SE AMERITA" }
+    { src: `${base}/music/Beéle - quédate.mp3`, artist: "Beéle", title: "Quédate" },
+    { src: `${base}/music/Grupo Frontera  -  monterrey.mp3`, artist: "Grupo Frontera", title: "monterrey" },
+    { src: `${base}/music/KAROL G, Maluma - Créeme.mp3`, artist: "KAROL G, Maluma", title: "Créeme" }
   ];
 
   const [current, setCurrent] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(true); // 👉 autoplay ON
   const [expanded, setExpanded] = useState(false);
   const audioRef = useRef(null);
 
-  // ▶ AUTOPLAY cuando cambia de tema
+  // 🔥 AUTOPLAY + MUTE FIX
   useEffect(() => {
-    audioRef.current?.play()
-      .then(() => setIsPlaying(true))
-      .catch(err => console.log("Autoplay bloqueado:", err));
-  }, [current]);
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    audio.muted = true;      // autoplay permitido
+    audio.volume = 1;
+
+    // intenta reproducir apenas cargue
+    audio.play().catch(() => {});
+  }, []);
+
+  // Cuando cambia la canción o estado de reproducción
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    if (isPlaying) {
+      audio.play().catch(() => {});
+    }
+  }, [current, isPlaying]);
 
   const togglePlay = (e) => {
     e.stopPropagation();
     const audio = audioRef.current;
+
     if (!audio) return;
 
-    if (isPlaying) audio.pause();
-    else audio.play();
-    setIsPlaying(!isPlaying);
+    if (isPlaying) {
+      audio.pause();
+      setIsPlaying(false);
+    } else {
+      audio.muted = false; // 👉 al tocar play ya NO está muteado
+      audio.play()
+        .then(() => setIsPlaying(true))
+        .catch(err => console.log("Bloqueado:", err));
+    }
   };
 
   const nextSong = (e) => {
@@ -40,7 +62,10 @@ export default function Reproductor() {
   return (
     <div
       className={`reproductor ${expanded ? "expandido" : ""}`}
-      onMouseEnter={() => setExpanded(true)}
+      onMouseEnter={() => {
+        setExpanded(true);
+        if (audioRef.current) audioRef.current.muted = false; // 👉 desmutea con hover
+      }}
       onMouseLeave={() => setExpanded(false)}
     >
       <div className="song-info">
@@ -57,14 +82,18 @@ export default function Reproductor() {
         <audio
           ref={audioRef}
           src={songs[current].src}
-          autoPlay
-          loop={false}
+          autoPlay={true}
+          muted={true}
+          onCanPlay={() => audioRef.current.play().catch(() => {})}
           onEnded={() => setCurrent((prev) => (prev + 1) % songs.length)}
         />
       </div>
     </div>
   );
 }
+
+
+
 
 
 

@@ -6,16 +6,22 @@ export default function Amigos() {
 
   const amigos = [
     {
-      nombre: "Mabb 🌸",
-      imagen: "https://i.imgur.com/AJPfk4n.png",
+      nombre: "Kat ♡",
+      imagen: "https://i.imgur.com/LsWrnUX.png",
       descripcion:
-        "Mi preciosa te amo mucho ❤️ eres una persona muy especial para mi, estoy agradecida con el universo por cruzarnos en el tiempo perfecto.✨️",
+        "Mi Persona favorita.♥️♥️",
     },
     {
-      nombre: "Lugo  🦁",
-      imagen: "https://i.imgur.com/5cE7D04.png",
+      nombre: "Gaby ♡",
+      imagen: "https://i.imgur.com/csq54D6.png",
       descripcion:
-        "Mi brou!! Más que mi brou mi hermano te quiero y te aprecio mucho agradecida contigo por siempre darme tus consejos vrgas.❤️",
+        "My Enfadosa Favorita.❤️",
+    },
+    {
+      nombre: "Juli ♡",
+      imagen: "https://i.imgur.com/Q9PkUur.png",
+      descripcion:
+        "My BeBa Favorita.❤️",
     },
   ];
 
@@ -41,7 +47,7 @@ export default function Amigos() {
           <div className="modal-contenido" onClick={(e) => e.stopPropagation()}>
             <h3>{amigoSeleccionado.nombre}</h3>
             <p>{amigoSeleccionado.descripcion}</p>
-            <button onClick={() => setAmigoSeleccionado(null)}>Cerrar ✨</button>
+            <button onClick={() => setAmigoSeleccionado(null)}>Cerrar</button>
           </div>
         </div>
       )}

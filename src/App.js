@@ -12,16 +12,9 @@ export default function App() {
       {/* 🌅 Fondo base */}
       <img
         id="background-image"
-        src="https://i.imgur.com/pgqB0mK.png"
+        src="https://i.imgur.com/jiO01i3.gif"
         alt="fondo"
         className="background-image"
-      />
-
-      {/* ❄️ Capa de nieve (GIF o video transparente) */}
-      <img
-        src="https://i.imgur.com/oubBrjV.gif"
-        alt="nieve"
-        className="snow-overlay"
       />
 
       {/* ✅ UI principal (no se toca) */}
@@ -32,7 +25,7 @@ export default function App() {
 
               <div className="profile-pic">
                 <img
-                  src="https://i.imgur.com/toGRQnC.png"
+                  src="https://i.imgur.com/ThW77Zc.png"
                   alt="perfil"
                 />
               </div>
@@ -44,28 +37,28 @@ export default function App() {
                     className={activeSection === "inicio" ? "active" : ""}
                     onClick={() => setActiveSection("inicio")}
                   >
-                    𝐈𝐧𝐢𝐜𝐢𝐨 ✨
+                    𝐈𝐧𝐢𝐜𝐢𝐨 ♡
                   </p>
 
                   <p
                     className={activeSection === "sobremi" ? "active" : ""}
                     onClick={() => setActiveSection("sobremi")}
                   >
-                    𝐒𝐨𝐛𝐫𝐞 𝐦𝐢 ✨
+                    𝐒𝐨𝐛𝐫𝐞 𝐦𝐢 ♡
                   </p>
 
                   <p
                     className={activeSection === "amigos" ? "active" : ""}
                     onClick={() => setActiveSection("amigos")}
                   >
-                    𝐀𝐦𝐢𝐠𝐨𝐬 ✨
+                    𝐀𝐦𝐢𝐠𝐨𝐬 ♡
                   </p>
 
                   <p
                     className={activeSection === "galeria" ? "active" : ""}
                     onClick={() => setActiveSection("galeria")}
                   >
-                    𝐆𝐚𝐥𝐞𝐫𝐢𝐚 ✨
+                    𝐆𝐚𝐥𝐞𝐫𝐢𝐚 ♡
                   </p>
 
                 </div>

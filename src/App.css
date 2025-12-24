@@ -18,7 +18,10 @@ body, html {
   object-fit: cover;
   z-index: -2;
   opacity: 0.9;
+
+ filter: grayscale(1) brightness(1.1) contrast(1.2);
 }
+
 
 /* --- Estructura principal --- */
 .app {
@@ -88,7 +91,7 @@ body, html {
 /* 💫 Efecto hover coordinado con perfil */
 .profile-pic:hover ~ .flower-decoration {
   transform: scaleX(-1) rotate(20deg) scale(1.07);
-  filter: drop-shadow(0 0 12px rgba(200, 255, 200, 0.5));
+  filter: drop-shadow(0 0 12px rgba(245, 245, 245, 0.5));
 }
 
 /* --- Foto de perfil --- */
@@ -154,7 +157,7 @@ body, html {
 .menu-buttons p:hover {
   color: #eeeeee;
   transform: scale(1.05);
-  text-shadow: 0 0 10px rgba(200, 255, 220, 0.8);
+  text-shadow: 0 0 10px rgba(245, 245, 245, 0.8);
 }
 
 /* ✨ Estado activo */
@@ -185,7 +188,7 @@ body, html {
 }
 
 .menu-reproductor:hover {
-  background: rgba(221, 49, 49, 0.582);
+  background: rgba(231, 231, 231, 0.582);
   transform: scale(1.02);
 }
 
@@ -203,32 +206,6 @@ body, html {
   align-items: center;
 }
 
-/* ❄️ Canvas de nieve encima de todo */
-#snow-canvas, .snow-canvas {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 20;
-  opacity: 1;
-  mix-blend-mode: normal;
-}
-/* ❄️ Nieve GIF/Video arriba de todo */
-.snow-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  pointer-events: none;
-  z-index: 0; /* 🔥 forzado encima incluso del iframe XaT */
-  background: transparent;
-  image-rendering: auto;
-  opacity: 1;
-}
 
 .butterfly-overlay {
   position: absolute;

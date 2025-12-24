@@ -3,9 +3,13 @@ import "./galeria.css";
 
 export default function Galeria() {
   const fotos = [
-    { id: 1, src: "https://i.imgur.com/LObF1Mc.png", caption: "", rotate: "-5deg" },
-    { id: 2, src: "https://i.imgur.com/YzN8VNJ.png", caption: "", rotate: "4deg" },
-    { id: 3, src: "https://i.imgur.com/WZUdRlV.png", caption: "", rotate: "-7deg" },
+    { id: 1, src: "https://i.imgur.com/eydAVUu.png", caption: "", rotate: "-5deg" },
+    { id: 2, src: "https://i.imgur.com/wYCGIW8.png", caption: "", rotate: "4deg" },
+    { id: 3, src: "https://i.imgur.com/dHtk2e9.png", caption: "", rotate: "-7deg" },
+    { id: 4, src: "https://i.imgur.com/mvZzTNn.png", caption: "", rotate: "-7deg" },
+    { id: 5, src: "https://i.imgur.com/RHzMUaw.png", caption: "", rotate: "-7deg" },
+    { id: 6, src: "https://i.imgur.com/NMYk0S2.png", caption: "", rotate: "-7deg" },
+
   ];
 
   return (

@@ -9,8 +9,8 @@ export default function SobreMi() {
   useEffect(() => {
     // ✅ Declaramos el texto dentro del efecto
     const textos = [
-      `Rodeada de personas llenas de odio y envidia, queriendo robar su luz, pero no hay nadie que pueda quitarle su brillo, ella tiene al sol y a la luna de su lado y se quedaran con las ganas de hacerlo.☀🌙✨
-No todos van a entender por lo que tuvo que pasar para tener esa intensidad y esa sonrisa llena de vida, tampoco tiene tiempo para explicártelo, solo sabe que no existe oscuridad que pueda opacarla y mucho menos personas que puedan apagarla.🦋✨🔥`,
+      `Hoy procura no desgastarte, hay gente ke no merece ni tu tiempo, ni tu mente, ni tu espacio... 
+      que circulen!!! que afán de Enfocarte en quien no te valora o no te quiere, dedicar tiempo a quien no te merece es pérdida de energía... ya dije!!!`,
     ];
 
     if (indexParrafo < textos.length) {

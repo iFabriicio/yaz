@@ -4,8 +4,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 200px;
-  height: 400px;
+  width: 220px;
+  height: 410px;
   margin: 0 auto;
   margin-left: 52px;
   perspective: 900px;
@@ -29,7 +29,7 @@
 /* 🌿 HOJA PRINCIPAL CON TEXTURA */
 .book-page {
   position: relative;
-  width: 98%;
+  width: 98px;
   height: 98%;
   margin: auto;
   border-radius: 14px;
@@ -65,63 +65,17 @@
   pointer-events: none;
 }
 
-/* 🔥 HOJAS INTERNAS CON SOMBRA */
-.stf__page {
-  background-color: #fefdf9 !important;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
-  border-radius: 10px;
-  backface-visibility: hidden;
-}
 
-/* 📚 PILA DE HOJAS DETRÁS */
-.book-stack {
-  position: absolute;
-  top: -5px;
-  left: 7px;
-  width: 147%;
-  height: 100%;
-  border-radius: 5px;
-  transform-origin: center;
-  z-index: 1;
-  transition: transform 0.3s ease, opacity 0.3s ease;
-}
-
-/* 🌈 GRADIENTES SUAVES VERDE-LILA */
-.book-stack:nth-child(1) {
-  background: linear-gradient(135deg, #1b1b1bab 0%, #161616ab 100%);
-  transform: translateX(0px) translateY(0px);
-  box-shadow: 1px 1px 2px rgba(0, 60, 0, 0.2);
-  opacity: 1;
-}
-
-.book-stack:nth-child(3) {
-  background: linear-gradient(135deg, #161616ab 0%, #161616ab 100%);
-  transform: translateX(21px) translateY(6px);
-  box-shadow: 3px 3px 4px rgba(0, 60, 0, 0.25);
-  opacity: 0.9;
-  border-top-right-radius: 7px;
-  border-bottom-right-radius: 14px;
-}
-
-.book-stack:nth-child(4) {
-  background: linear-gradient(135deg, #161616ab 0%, #161616ab 100%);
-  transform: translateX(15px) translateY(4px);
-  box-shadow: 4px 4px 5px rgba(0, 60, 0, 0.25);
-  opacity: 0.85;
-}
 
 /* ✨ BRILLO DEL BORDE DERECHO */
+/* ✨ BRILLO DEL BORDE DERECHO — DESACTIVADO */
 .book-stack::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 8px;
-  height: 100%;
-  background: linear-gradient(to left, rgba(255, 255, 255, 0.4), transparent);
-  border-top-right-radius: 14px;
-  border-bottom-right-radius: 14px;
+  content: none !important;
+  background: none !important;
+  width: 0 !important;
+  height: 0 !important;
 }
+
 
 /* 🌸 ENCABEZADO SUPERIOR */
 .book-header {
@@ -165,24 +119,6 @@
   100% { left: 200%; }
 }
 
-/* ✨ ADORNO LATERAL ENCABEZADO */
-.book-header::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 90%;
-  right: -28px;
-  width: 55px;
-  height: 55px;
-  background-image: url("https://i.imgur.com/Gb9jY1N.png");
-  background-size: contain;
-  background-repeat: no-repeat;
-  opacity: 0.4;
-  transform: translateY(-50%) scaleX(-1);
-  pointer-events: none;
-        opacity: 1;
-}
-
 /* 🌿 CUERPO DEL LIBRO */
 .book-body {
   width: 76%;
@@ -207,21 +143,6 @@
   overflow: hidden;
   transform: translateX(3px) translateY(7px);
     opacity: 0.55;
-}
-
-/* ✨ ADORNOS FLORALES EN ESQUINAS */
-.book-body::before,
-.book-body::after {
-  content: "";
-  position: absolute;
-  width: 65px;
-  height: 65px;
-  background-size: contain;
-  background-repeat: no-repeat;
-  opacity: 0.25;
-  pointer-events: none;
-  filter: hue-rotate(60deg);
-      opacity: 1;
 }
 
 .book-body::before {

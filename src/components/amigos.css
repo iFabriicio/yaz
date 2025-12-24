@@ -89,28 +89,31 @@
 /* 📌 Posiciones “desordenadas” */
 .polaroid-0 {
    width: 48%;
-  top: 0;
-  left: 30px;
+  top: -0;
+  left: 10px;
   transform: rotate(-5deg);
 }
 
 .polaroid-1 {
     width: 48%;
-  top: 10px;
+  top: -10px;
   right: 30px;
+   left: 180px;
   transform: rotate(6deg);
 }
 
 .polaroid-2 {
   height: 150px;
   bottom: 25px;
-  left: 40px;
+    top: 100px;
+  left: 95px;
   transform: rotate(3deg);
 }
 
 .polaroid-3 {
   bottom: 10px;
-  right: 40px;
+    top: -10px;
+  right: 50px;
   transform: rotate(-4deg);
 }
 
