@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/yaz/static/css/main.b3de082f.css",
+    "main.js": "/yaz/static/js/main.2af971a0.js",
+    "static/js/453.3e9745e2.chunk.js": "/yaz/static/js/453.3e9745e2.chunk.js",
+    "index.html": "/yaz/index.html",
+    "main.b3de082f.css.map": "/yaz/static/css/main.b3de082f.css.map",
+    "main.2af971a0.js.map": "/yaz/static/js/main.2af971a0.js.map",
+    "453.3e9745e2.chunk.js.map": "/yaz/static/js/453.3e9745e2.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b3de082f.css",
+    "static/js/main.2af971a0.js"
+  ]
+}
