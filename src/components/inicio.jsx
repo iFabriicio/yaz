@@ -8,7 +8,7 @@ export default function Inicio() {
 
       <div className="firma-wrap">
         <img
-          src="https://i.imgur.com/IMsFonz.gif"
+          src="https://i.ibb.co/1fQqQDhm/pkzlz-yfjub.gif"
           alt="Firma de Sofis"
           className="firma-sofis"
         />

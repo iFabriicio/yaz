@@ -10,48 +10,26 @@ export default function Reproductor() {
     { src: `${base}/music/KAROL G, Maluma - Créeme.mp3`, artist: "KAROL G, Maluma", title: "Créeme" }
   ];
 
-  const [current, setCurrent] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(true); // 👉 autoplay ON
+    const [current, setCurrent] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(false);
   const [expanded, setExpanded] = useState(false);
   const audioRef = useRef(null);
 
-  // 🔥 AUTOPLAY + MUTE FIX
+  // ▶ AUTOPLAY cuando cambia de tema
   useEffect(() => {
-    const audio = audioRef.current;
-    if (!audio) return;
-
-    audio.muted = true;      // autoplay permitido
-    audio.volume = 1;
-
-    // intenta reproducir apenas cargue
-    audio.play().catch(() => {});
-  }, []);
-
-  // Cuando cambia la canción o estado de reproducción
-  useEffect(() => {
-    const audio = audioRef.current;
-    if (!audio) return;
-
-    if (isPlaying) {
-      audio.play().catch(() => {});
-    }
-  }, [current, isPlaying]);
+    audioRef.current?.play()
+      .then(() => setIsPlaying(true))
+      .catch(err => console.log("Autoplay bloqueado:", err));
+  }, [current]);
 
   const togglePlay = (e) => {
     e.stopPropagation();
     const audio = audioRef.current;
-
     if (!audio) return;
 
-    if (isPlaying) {
-      audio.pause();
-      setIsPlaying(false);
-    } else {
-      audio.muted = false; // 👉 al tocar play ya NO está muteado
-      audio.play()
-        .then(() => setIsPlaying(true))
-        .catch(err => console.log("Bloqueado:", err));
-    }
+    if (isPlaying) audio.pause();
+    else audio.play();
+    setIsPlaying(!isPlaying);
   };
 
   const nextSong = (e) => {
@@ -62,10 +40,7 @@ export default function Reproductor() {
   return (
     <div
       className={`reproductor ${expanded ? "expandido" : ""}`}
-      onMouseEnter={() => {
-        setExpanded(true);
-        if (audioRef.current) audioRef.current.muted = false; // 👉 desmutea con hover
-      }}
+      onMouseEnter={() => setExpanded(true)}
       onMouseLeave={() => setExpanded(false)}
     >
       <div className="song-info">
@@ -82,9 +57,8 @@ export default function Reproductor() {
         <audio
           ref={audioRef}
           src={songs[current].src}
-          autoPlay={true}
-          muted={true}
-          onCanPlay={() => audioRef.current.play().catch(() => {})}
+          autoPlay
+          loop={false}
           onEnded={() => setCurrent((prev) => (prev + 1) % songs.length)}
         />
       </div>
