@@ -1,0 +1,1815 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Xatspace Pixel Perfect</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+#bg-video{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    z-index:-2;
+}
+
+/* Capa de corazones */
+.hearts{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    z-index:-1;
+    pointer-events:none;
+}
+
+/* Corazón base */
+.heart{
+    position:absolute;
+    width:20px;
+    height:20px;
+    background: radial-gradient(circle, #ff9ebb, #ff4f92);
+    transform: rotate(45deg);
+    animation: fall linear infinite;
+    opacity:0.7;
+    border-radius: 4px;
+}
+
+/* formar el corazón */
+.heart::before,
+.heart::after{
+    content:"";
+    position:absolute;
+    width:20px;
+    height:20px;
+    background: inherit;
+    border-radius:50%;
+}
+
+.heart::before{
+    top:-10px;
+    left:0;
+}
+
+.heart::after{
+    left:-10px;
+    top:0;
+}
+
+/* Animación de caída */
+@keyframes fall{
+    0%{
+        transform: translateY(-10vh) rotate(45deg) scale(0.8);
+        opacity:0;
+    }
+    10%{
+        opacity:0.8;
+    }
+    100%{
+        transform: translateY(110vh) rotate(45deg) scale(1);
+        opacity:0;
+    }
+}
+
+/* Variaciones (más natural) */
+.heart:nth-child(1){ left:10%; animation-duration: 12s; animation-delay: 0s; }
+.heart:nth-child(2){ left:20%; animation-duration: 15s; animation-delay: 2s; }
+.heart:nth-child(3){ left:30%; animation-duration: 10s; animation-delay: 4s; }
+.heart:nth-child(4){ left:40%; animation-duration: 18s; animation-delay: 1s; }
+.heart:nth-child(5){ left:50%; animation-duration: 14s; animation-delay: 3s; }
+.heart:nth-child(6){ left:60%; animation-duration: 11s; animation-delay: 5s; }
+.heart:nth-child(7){ left:70%; animation-duration: 16s; animation-delay: 2s; }
+.heart:nth-child(8){ left:80%; animation-duration: 13s; animation-delay: 6s; }
+.heart:nth-child(9){ left:90%; animation-duration: 17s; animation-delay: 1s; }
+
+/* fondo base */
+body{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background: radial-gradient(circle at top, #f391b78f, #cc7894 70%);
+}
+
+body{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    /* fondo base por si no carga el video */
+    background: radial-gradient(circle at top, #f391b78f, #cc7894 70%);
+}
+
+.wrapper{
+    display:flex;
+    align-items:center;
+    gap:40px;
+}
+
+
+/* PERFIL */
+.profile{
+    position:relative;
+    width:390px;
+    height:400px; /* 👈 CLAVE */
+    padding:180px 10px 30px;
+    border-radius:25px;
+
+    /* 👇 glass */
+    background: rgba(235, 143, 181, 0.37);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border:1px solid rgba(139, 21, 60, 0.075);
+
+    overflow:visible; /* 👈 IMPORTANTE */
+    box-shadow:0 30px 60px rgba(63, 33, 33, 0.7);
+    color:#fff;
+}
+
+/* AVATAR */
+.avatar{
+    position:absolute;
+    top:-45px;
+    left:-178px;
+    width:200px;
+    height:200px;
+    border-radius:50%;
+    background: rgba(231, 149, 183, 0.6);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    overflow:hidden;
+    border:21px solid #f3d3dfa1;
+    box-shadow:0 10px 30px rgba(83, 46, 55, 0.384);
+    z-index:20;
+}
+.avatar img{width:100%;height:100%;object-fit:cover;}
+
+/* MENU */
+.menu{
+    position:absolute;
+    top:-45px;
+    left:50%;
+    transform:translateX(-50%);
+
+    display:flex;
+    gap:8px;
+    border:1px solid rgba(250, 201, 218, 0.075);
+    background: rgba(241, 137, 177, 0.6);
+    backdrop-filter: blur(15px);
+
+
+
+    padding:6px;
+    border-radius:26px;
+}
+.menu span{
+    font-size:12px;
+    opacity:0.6;
+    padding:6px 14px;
+    border-radius:20px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.menu span:hover{
+    background: rgba(233, 144, 181, 0.801);
+    opacity:1;
+}
+
+.menu .active{
+    background:linear-gradient(90deg,#f798bf,#db859f);
+    opacity:1;
+    box-shadow:0 5px 15px rgba(255, 163, 201, 0.699);
+}
+
+.menu .active:hover{
+    background:linear-gradient(90deg,#f798bf,#db859f);
+    opacity:1;
+}
+
+
+/* TEXTO PRO REAL */
+.name{
+    text-align:center;
+    font-size:35px;
+    position: relative;
+    top:-90px;
+
+    /* gradiente real */
+    background: linear-gradient(270deg, #fac8df, #ffc0da, #facee1, #ffbbdc);
+    background-size: 400% 400%;
+
+    -webkit-background-clip: text;
+    background-clip: text;
+
+    color: transparent;
+
+    animation: gradientMove 6s ease infinite, floatText 4s ease-in-out infinite;
+}
+
+/* glow REAL detrás (no rompe el texto) */
+.name::before{
+    content:"♥ 𝓨𝓪𝔃 ♥";
+    position:absolute;
+    left:0;
+    width:100%;
+
+    color:#ff9ecb;
+    z-index:-1;
+
+    filter: blur(8px);
+    opacity:0.7;
+}
+
+@keyframes gradientMove{
+    0%{ background-position: 0% 50%; }
+    50%{ background-position: 100% 50%; }
+    100%{ background-position: 0% 50%; }
+}
+
+@keyframes floatText{
+    0%{ transform: translateY(0px); }
+    50%{ transform: translateY(-4px); }
+    100%{ transform: translateY(0px); }
+}
+
+.id{
+    position: relative;
+    top: -88px;
+    font-size:12px;
+    text-align:center;
+    opacity:0.5;
+    margin-bottom:25px;
+}
+
+/* INFO */
+.info{
+    position: relative;
+    top: -85px;
+    display:flex;
+    justify-content:center;
+    gap:14px;
+    margin-bottom:25px;
+}
+
+/* TARJETAS */
+.card{
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(12px);
+    border:1px solid rgba(243, 172, 196, 0.459);
+
+    padding:10px 14px;
+    border-radius:14px;
+
+    min-width:110px;
+    text-align:center;
+
+    transition:0.3s;
+}
+
+/* HOVER PRO */
+.card:hover{
+    transform:translateY(-3px);
+    box-shadow:0 10px 25px rgba(218, 103, 141, 0.25);
+}
+
+/* TITULO (remarcado) */
+.card .title{
+    display:block;
+    font-size:11px;
+    font-weight:600;
+    color:#ffc0da; /* violeta */
+    margin-bottom:4px;
+    letter-spacing:0.5px;
+}
+
+/* SUBTITULO */
+.card .sub{
+    font-size:10px;
+    color:#fff;
+    opacity:0.9;
+}
+
+.flag{
+    width:16px;
+    height:12px;
+    object-fit:cover;
+    border-radius:2px;
+    margin-right:6px;
+    vertical-align:middle;
+}
+.info div{
+    background: rgba(255, 213, 224, 0.219);
+    backdrop-filter: blur(10px);
+
+    border:1px solid rgba(243, 172, 193, 0.541);
+
+    padding:6px 10px;
+    border-radius:12px;
+    font-size:10px;
+    text-align:center;
+    min-width:110px;
+}
+
+/* MENSAJE */
+.message{
+    position: absolute;
+    top: 120px;
+    background: rgba(255,255,255,0.05);
+    border:1px solid rgba(255,255,255,0.15);
+    border-radius:18px;
+    padding:18px;
+    text-align:center;
+    font-size:11px;
+    opacity:0.85;
+}
+
+.cursor{
+    display:inline-block;
+    margin-left:2px;
+    animation:blink 1s infinite;
+    color:#fc84ac;
+}
+
+@keyframes blink{
+    0%,50%,100%{opacity:1;}
+    25%,75%{opacity:0;}
+}
+
+.tabs{
+    position: relative;
+    top:-70px;
+
+    height:220px; /* 👈 altura fija */
+    overflow:visible; /* 👈 evita que crezca */
+}
+
+.tab{
+    position:absolute; /* 👈 CLAVE */
+    width:100%;
+    height:100%;
+    top:0;
+    left:0;
+
+    display:none;
+}
+
+.tab.active{
+    display:block;
+}
+
+
+
+@keyframes fade{
+    from{opacity:0; transform:translateY(10px);}
+    to{opacity:1; transform:translateY(0);}
+}
+
+/* PLAYER */
+.player{
+    position: relative;
+    top:80px;
+    left:-602px;
+    width:170px;
+    padding:16px 15px 20px;
+
+    border-radius:80px 80px 30px 30px;
+
+    background: rgba(226, 147, 173, 0.6);
+    backdrop-filter: blur(25px);
+
+    border:1px solid rgba(255, 112, 167, 0.075);
+
+    box-shadow:0 30px 60px rgba(141, 64, 84, 0.7);
+    color:#fff;
+    text-align:center;
+}
+.player img{
+
+    width:75px;
+    height:75px;
+    border-radius:50%;
+    object-fit:cover;
+
+    top:-5px;
+
+    border:6px solid #d47096;
+    box-shadow:
+        inset 0 0 0 6px rgba(0,0,0,0.6),
+        inset 0 0 0 12px rgba(255,255,255,0.05),
+        0 10px 30px rgba(0,0,0,0.5);
+
+    position:relative;
+}
+
+
+.player.playing::before{
+    animation-play-state: running;
+}
+/* centro del vinilo */
+.player img::after{
+    content:"";
+    position:absolute;
+    width:100px;
+    height:100px;
+    background:#a01717;
+    border-radius:50%;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+}
+
+
+
+@keyframes spin{
+    from{transform:rotate(0deg);}
+    to{transform:rotate(360deg);}
+}
+
+.player img{
+
+    animation:spin 6s linear infinite;
+    animation-play-state: paused;
+}
+
+.player.playing img{
+    animation-play-state: running;
+}
+
+@keyframes spin{
+    from{transform:rotate(0deg);}
+    to{transform:rotate(360deg);}
+}
+.song{
+    position: relative;
+    top:8px;
+    font-size:10px;
+    margin-bottom:15px;
+}
+
+.controls{
+    position: relative;
+    top:-18px;
+    display:flex;
+    justify-content:center;
+    gap:12px;
+}
+.controls button{
+    width:30px;
+    height:30px;
+    border:none;
+    border-radius:50%;
+    background:linear-gradient(90deg,#ef468765,#ea337f5b);
+    color:#fff;
+    cursor:pointer;
+    box-shadow:0 5px 15px rgba(234, 51, 121, 0.24);
+}
+
+
+.progress-container{
+    position: relative;
+    top:-10px;
+    width:100%;
+    height:4px;
+    background:rgba(255,255,255,0.15);
+    border-radius:10px;
+    overflow:hidden;
+    cursor:pointer;
+}
+
+.progress{
+    height:100%;
+    width:0%;
+    background:linear-gradient(90deg,#ef468c,#ea3379);
+    border-radius:10px;
+    box-shadow:0 0 8px rgba(239, 70, 149, 0.8);
+    transition:width 0.1s linear;
+}
+
+.wrapper{
+    display:flex;
+    align-items:center;
+    gap:40px;
+    top:20px;
+    position: relative;
+    left: 150px;
+}
+
+.glass{
+    background: rgba(255, 255, 255, 0.08); /* transparencia */
+    backdrop-filter: blur(20px); /* efecto vidrio */
+    -webkit-backdrop-filter: blur(20px);
+
+    border: 1px solid rgba(255, 255, 255, 0.15);
+
+    box-shadow:
+        0 8px 32px rgba(0,0,0,0.4),
+        inset 0 1px 0 rgba(255,255,255,0.1);
+
+    border-radius: 20px;
+}
+
+
+.equalizer{
+    display:flex;
+    justify-content:center;
+    margin-top:10px;
+    gap:3px;
+    height:12px;
+    margin-bottom:28px;
+}
+
+.equalizer span{
+
+    width:3px;
+    height:100%;
+    background:#fc84b6;
+    border-radius:2px;
+    animation:equalize 1s infinite ease-in-out;
+    animation-play-state: paused;
+}
+
+.equalizer span:nth-child(2){animation-delay:0.2s;}
+.equalizer span:nth-child(3){animation-delay:0.4s;}
+.equalizer span:nth-child(4){animation-delay:0.6s;}
+
+.player.playing .equalizer span{
+    animation-play-state: running;
+}
+
+@keyframes equalize{
+    0%,100%{height:4px;}
+    50%{height:18px;}
+}
+
+.player{
+    transition:0.3s;
+}
+
+
+
+/* animación al cambiar canción */
+.song{
+    transition:0.3s;
+}
+
+.song.change{
+    opacity:0;
+    transform:translateY(10px);
+}
+
+/* GRID FRIENDS */
+.friends{
+    display:grid;
+grid-template-columns:repeat(2, 166px);
+justify-content:center;
+    gap:15px;
+    margin-top:20px;
+}
+
+/* CARD FRIEND */
+.friend{
+    position: relative;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    top:-90px;
+    padding:12px 14px; /* 👈 mejor balance */
+
+    border-radius:50px;
+
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(20px);
+
+    border:1px solid rgba(255,255,255,0.08);
+
+    box-shadow:0 10px 30px rgba(0,0,0,0.4);
+
+    transition:0.3s;
+}
+.friend:hover{
+    transform:translateY(-3px);
+    box-shadow:0 15px 40px rgba(234, 51, 112, 0.25);
+}
+
+/* AVATAR */
+.avatar-friend{
+    width:50px;
+    height:50px;
+    border-radius:50%;
+    overflow:hidden;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0; /* 👈 NO se achica */
+    background:#e484a4;
+    border:2px solid rgba(255,255,255,0.1);
+
+    margin-right:12px;
+}
+
+.avatar-friend img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+/* LETRA fallback */
+.avatar-friend.letter{
+    font-weight:600;
+    color:#fff;
+    font-size:18px;
+}
+
+/* DATA */
+.data{
+    flex:1;
+}
+
+.nick{
+    position: relative;
+    left:-20px;
+    font-size:10px;
+    font-weight:600;
+}
+
+.fid{
+    position: relative;
+    left:-20px;
+    font-size:8px;
+    opacity:0.6;
+}
+
+/* BOTON XAT */
+.xat{
+    position: relative;
+    text-decoration:none;
+    margin-left:auto;
+    width:35px;
+    height:35px;
+    left:-20px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0; /* 👈 NO se achica */
+    border-radius:50%;
+
+    font-size:8px;
+    color:#fff;
+
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(10px);
+
+    border:1px solid rgba(255,255,255,0.15);
+
+    transition:0.3s;
+}
+
+/* HOVER BOTON */
+.xat:hover{
+    background:linear-gradient(90deg,#df7aa49d,#f779ad9f);
+    box-shadow:0 0 15px rgba(239, 70, 121, 0.6);
+}
+
+/* GALERIA */
+.gallery-container{
+    position:absolute;
+    width:106%;
+    height:280px;
+    top:-95px;
+    left:-12px;
+    margin-top:10px; /* 👈 se acomoda dentro del perfil */
+    gap:80%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow: hidden;
+    perspective:1200px;
+}
+
+/* carta inicial */
+.card-main{
+    position:absolute;
+    width:130px;
+    height:190px;
+    border-radius:18px;
+    overflow:hidden;
+    cursor:pointer;
+    transition:0.6s;
+    z-index:10;
+    padding:6px;
+    background:rgba(255,255,255,0.06);
+    backdrop-filter:blur(18px);
+
+    border:1px solid rgba(255,255,255,0.12);
+
+    box-shadow:
+        0 10px 40px rgba(0, 0, 0, 0.082),
+        0 0 20px rgba(239, 70, 121, 0.171);
+}
+
+.card-main:hover{
+    transform:scale(1.05);
+    box-shadow:
+        0 20px 30px rgba(0, 0, 0, 0.096),
+        0 0 25px rgba(239, 70, 140, 0.295);
+}
+
+/* 👇 BORDE GRADIENTE PRO */
+.card-main::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    border-radius:18px;
+    padding:1px;
+
+    background:linear-gradient(120deg,#f88bb88c,#f178ab80,#f57baa98);
+
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+
+    pointer-events:none;
+}
+
+.card-main img{
+        border-radius:18px;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+
+/* carrusel oculto al inicio */
+.carousel{
+    position:absolute;
+    width:100%;
+    height:100%;
+    transform-style:preserve-3d;
+    display:none;
+}
+
+/* cartas */
+.item{
+    position:absolute;
+    width:110px;
+    height:150px;
+    border-radius:18px;
+    overflow:hidden;
+    padding:6px;
+    left:50%;
+    top:50%;
+
+    transform-style:preserve-3d;
+    transform-origin:center;
+
+    transition:1s;
+
+    /* 👇 EFECTO GLASS */
+    background:rgba(255,255,255,0.06);
+    backdrop-filter:blur(18px);
+
+    border:1px solid rgba(255,255,255,0.12);
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.151);
+}
+
+/* 👇 BORDE GRADIENTE PRO */
+.item::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    border-radius:18px;
+    padding:1px;
+
+    background:linear-gradient(120deg,#f88bb88c,#f178ab80,#f57baa98);
+
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+
+    pointer-events:none;
+}
+
+/* HOVER PRO */
+.item:hover{
+    transform:translate(-50%, -50%) scale(1.08) !important;
+
+    box-shadow:
+        0 20px 50px rgba(0,0,0,0.7),
+        0 0 20px rgba(51, 222, 234, 0.8);
+}
+
+.item img{
+    border-radius:18px;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+/* animacion giro */
+@keyframes rotate{
+    from{transform:rotateY(0deg);}
+    to{transform:rotateY(360deg);}
+}
+
+.carousel.active{
+    display:block;
+    animation:rotate 20s linear infinite;
+}
+
+/* PANTALLA INICIAL */
+.intro{
+    position:fixed;
+    inset:0;
+    background:#8f3c63;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+
+    transition:1.5s ease;
+}
+
+/* BOTON */
+.enter-btn{
+    padding:14px 40px;
+    border:none;
+    border-radius:30px;
+    font-size:14px;
+    letter-spacing:3px;
+    color:#fff;
+    cursor:pointer;
+
+    background:linear-gradient(90deg,#f579a8,#fc84b6);
+    box-shadow:0 0 25px rgba(230, 96, 136, 0.7);
+
+    transition:0.3s;
+}
+
+.enter-btn:hover{
+    transform:scale(1.05);
+    box-shadow:0 0 40px rgb(247, 85, 139);
+}
+
+/* EFECTO AL ENTRAR */
+.intro.hide{
+    opacity:0;
+    backdrop-filter: blur(20px);
+}
+
+/* MARIPOSA */
+.butterfly{
+    position:absolute;
+    top:-70px;
+    left:-230px; /* 👈 ajustá según gusto */
+
+    width:150px;
+    pointer-events:none;
+
+    animation:floatButterfly 4s ease-in-out infinite;
+    z-index:25;
+}
+
+.butterfly img{
+    width:100%;
+    filter: hue-rotate(50deg) saturate(1.2) brightness(1.2);
+}
+
+/* animación flotante */
+@keyframes floatButterfly{
+    0%{
+        transform:translate(0px, 0px) rotate(0deg);
+    }
+    25%{
+        transform:translate(10px, -10px) rotate(5deg);
+    }
+    50%{
+        transform:translate(0px, -20px) rotate(0deg);
+    }
+    75%{
+        transform:translate(-10px, -10px) rotate(-5deg);
+    }
+    100%{
+        transform:translate(0px, 0px) rotate(0deg);
+    }
+}
+
+/* CONTENEDOR */
+.married-wrap{
+    position:absolute;
+    top:106px; /* ajustá fino según tu avatar */
+    left:-110px;
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+
+    cursor:pointer;
+    z-index:30;
+}
+
+/* TEXTO (oculto) */
+.married-label{
+    font-size:11px;
+    color:#fff;
+
+    margin-bottom:6px;
+
+    opacity:0;
+    transform:translateY(10px);
+
+    transition:0.3s;
+
+    background: rgba(255,255,255,0.1);
+    padding:4px 10px;
+    border-radius:12px;
+
+    backdrop-filter: blur(10px);
+}
+
+/* aparece en hover */
+.married-wrap:hover .married-label{
+    opacity:1;
+    transform:translateY(0);
+}
+
+/* CORAZÓN BASE */
+.married-heart{
+    width:20px;
+    height:20px;
+
+    background: radial-gradient(circle, #ff8fc1, #ff3f8e);
+    transform: rotate(45deg);
+
+    position:relative;
+
+    border-radius:4px;
+
+    animation: pulseHeart 1.2s infinite;
+    
+    box-shadow:
+        0 0 10px #ff5ca8,
+        0 0 25px #ff5ca8,
+        0 0 40px rgba(255,92,168,0.6);
+}
+
+/* forma corazón */
+.married-heart::before,
+.married-heart::after{
+    content:"";
+    position:absolute;
+    width:20px;
+    height:20px;
+    background:inherit;
+    border-radius:50%;
+}
+
+.married-heart::before{
+    top:-10px;
+    left:0;
+}
+
+.married-heart::after{
+    left:-10px;
+    top:0;
+}
+
+/* CORAZÓN BLANCO INTERNO */
+.married-heart::marker,
+.married-heart::after{}
+
+.married-heart::after,
+.married-heart::before{}
+
+.married-heart::after{}
+
+.married-heart::before{}
+
+/* corazón blanco centro */
+.married-heart::after,
+.married-heart::before{}
+
+.married-heart::after{}
+
+.married-heart::before{}
+
+/* 👇 CORAZÓN INTERNO */
+.married-heart::after,
+.married-heart::before{}
+
+.married-heart::after{}
+
+.married-heart::before{}
+
+/* ✔ pseudo interno real */
+.married-heart::after{
+    box-shadow:none;
+}
+
+.married-heart::before{
+    box-shadow:none;
+}
+
+/* 👇 agregamos el corazon blanco */
+.married-heart::after{
+    content:"❤";
+    position:absolute;
+    transform:rotate(-45deg);
+    font-size:10px;
+    color:white;
+
+    top:2px;
+    left:4px;
+}
+
+/* animación */
+@keyframes pulseHeart{
+    0%,100%{ transform:rotate(45deg) scale(1); }
+    50%{ transform:rotate(45deg) scale(1.2); }
+}
+
+.married-modal{
+    position:fixed;
+    inset:0;
+    background: rgba(22, 22, 22, 0.616); /* un poco más transparente */
+
+    backdrop-filter: blur(12px); /* 👈 EL EFECTO CLAVE */
+    -webkit-backdrop-filter: blur(12px); /* soporte Safari */
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    opacity:0;
+    pointer-events:none;
+    transition:0.4s;
+    z-index:9999;
+}
+
+.married-modal.active{
+    opacity:1;
+    pointer-events:auto;
+}
+
+.married-content{
+    width:480px;
+    padding:26px 30px;
+    border-radius:18px;
+
+    background: rgba(233, 233, 233, 0.425);
+    backdrop-filter: blur(25px);
+
+    border:1px solid rgba(255,255,255,0.25);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    color:#fff;
+    position:relative;
+    overflow:hidden;
+}
+
+/* 🔥 MITAD AZUL */
+.married-content::before{
+    content:"";
+    position:absolute;
+    top:0;
+    right:0;
+    width:55%;
+    height:100%;
+    background: linear-gradient(135deg, rgba(26, 26, 26, 0.699), rgba(26, 26, 26, 0.678));
+    clip-path: polygon(90% 0, 100% 0, 100% 100%, 20% 100%);
+}
+
+/* BORDE INTERNO */
+.married-content::after{
+    content:"";
+    position:absolute;
+    inset:8px;
+    border-radius:12px;
+    border:1px solid rgba(255,255,255,0.3);
+}
+
+/* INFO */
+.married-info{
+    position:relative;
+    z-index:2;
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start; /* 👈 clave */
+
+    gap:6px;
+}
+
+/* 🔥 NAME CON GRADIENTE ANIMADO */
+.married-info h2{
+    font-size:38px;
+    margin:0;
+    font-weight:600;
+
+    background: linear-gradient(90deg,#bdbdbd,#747474,#c7c7c7);
+    background-size:200%;
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+
+    animation: gradientMove 3s linear infinite;
+}
+
+@keyframes gradientMove{
+    0%{background-position:0%}
+    100%{background-position:200%}
+}
+
+.married-info p{
+    margin:0;
+    opacity:0.8;
+    font-size:14px;
+}
+
+/* CONTENEDOR DE LA FRASE */
+.married-phrase{
+    display:inline-block;
+    margin-top:8px;
+    padding:8px 12px;
+    border-radius:12px;
+    max-width:220px; /* 👈 límite del mensaje */
+    word-wrap:break-word;
+    background: rgba(156, 156, 156, 0.25); /* azul clarito */
+    backdrop-filter: blur(8px);
+
+    font-size:14px;
+    color:#fff;
+    position:relative;
+    overflow:hidden;
+}
+
+/* EFECTO CURSOR */
+#typingText::after{
+    content:"|";
+    margin-left:4px;
+    animation: blink 1s infinite;
+}
+
+@keyframes blink{
+    0%, 50%, 100%{opacity:1;}
+    25%, 75%{opacity:0;}
+}
+
+/* BOTÓN PRO */
+.married-xat{
+    margin-top:12px;
+    padding:10px 16px;
+    border-radius:20px;
+    border:none;
+    width:fit-content; /* 👈 evita que crezca */
+    background: linear-gradient(135deg,#cecece,#979797);
+    color:#fff;
+    cursor:pointer;
+    font-size:13px;
+
+    box-shadow: 0 5px 15px rgba(49, 49, 49, 0.5);
+    backdrop-filter: blur(10px);
+
+    transition:0.3s;
+}
+
+.married-xat:hover{
+    transform:scale(1.05);
+    box-shadow: 0 8px 25px rgba(167, 167, 167, 0.8);
+}
+
+/* AVATAR */
+.married-avatar{
+    width:120px;
+    height:120px;
+    border-radius:50%;
+    overflow:hidden;
+    flex-shrink:0; /* 👈 IMPORTANTE */
+    border:10px solid rgba(66, 66, 66, 0.699);
+    background:#000;
+    position:relative;
+    z-index:2;
+}
+
+.married-avatar img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+body{
+    cursor: none;
+}
+
+/* ❤️ CURSOR PRINCIPAL */
+#heartCursor{
+    position: fixed;
+    width: 30%; /* ajustá según tu PNG */
+    height: 30px;
+
+    pointer-events: none;
+    z-index: 999999;
+
+    background: url("https://xatimg.com/image/YbX9tnbfzNya.png") no-repeat center;
+    background-size: contain;
+
+    transform: translate(-50%, -50%);
+}
+
+
+#heartCursor::before{
+    top: -14px;
+    left: 0;
+}
+
+#heartCursor::after{
+    left: -14px;
+    top: 0;
+}
+
+
+
+/* 💕 TRAIL */
+.heart-particle{
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    pointer-events: none;
+    z-index: 999998;
+
+    background: #f56e97;
+    transform: rotate(45deg);
+    opacity: 0.8;
+
+    animation: fadeOut 0.8s forwards;
+}
+
+.heart-particle::before,
+.heart-particle::after{
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: #fc82ab;
+    border-radius: 50%;
+}
+
+.heart-particle::before{
+    top: -5px;
+    left: 0;
+}
+
+.heart-particle::after{
+    left: -5px;
+    top: 0;
+}
+
+/* animación desaparecer */
+@keyframes fadeOut{
+    to{
+        transform: translateY(-15px) scale(0.5) rotate(45deg);
+        opacity: 0;
+    }
+}
+
+*{
+    cursor: none !important;
+}
+</style>
+</head>
+<body>  
+<div class="intro" id="intro">
+    <button class="enter-btn" id="enterBtn">INGRESAR</button>
+</div> 
+    
+<div class="hearts">
+  <div class="heart"></div>
+  <div class="heart"></div>
+  <div class="heart"></div>
+  <div class="heart"></div>
+  <div class="heart"></div>
+  <div class="heart"></div>
+  <div class="heart"></div>
+  <div class="heart"></div>
+  <div class="heart"></div>
+</div>
+<div class="wrapper">
+
+ <div class="butterfly">
+    <img src="https://i.imgur.com/dVLIvmG.gif">
+</div>
+<div class="married-wrap" onclick="openMarried()">
+    <div class="married-label">Married</div>
+    <div class="married-heart"></div>
+</div>
+    <div class="profile">
+
+        
+        <div class="avatar">
+            <img src="https://xatimg.com/image/lu7HFLMYZjSz.png">
+        </div>
+ 
+        <!-- MENU -->
+        <div class="menu">
+            <span class="active">PERFIL</span>
+            <span>AMIGOS</span>
+            <span>GALERÍA</span>
+        </div>
+
+        <!-- TABS -->
+        <div class="tabs">
+
+            <!-- PERFIL -->
+            <div class="tab active" id="perfil">
+
+                <div class="name">♥ 𝓨𝓪𝔃 ♥</div>
+                <div class="id">Id: 1544139450</div>
+
+<div class="info">
+
+    <div class="card">
+        <span class="title">Cumpleaños</span>
+        <span class="sub">🎂 13 de Mayo</span>
+    </div>
+
+    <div class="card">
+        <span class="title">Signo</span>
+        <span class="sub">♉ Tauro</span>
+    </div>
+
+    <div class="card">
+        <span class="title">Mexico</span>
+<span class="sub">
+    <img src="https://flagcdn.com/w20/mx.png" class="flag">
+    México
+    </div>
+
+</div>
+
+<div class="message">
+    <span id="typing"></span><span class="cursor">|</span>
+</div>
+
+            </div>
+
+<div class="tab" id="amigos">
+
+    <div class="friends">
+
+        <!-- FRIEND -->
+        <div class="friend">
+            <div class="avatar-friend letter">AG</div>
+
+            <div class="data">
+                <div class="nick">Angelita♥</div>
+                <div class="fid">1537517717</div>
+            </div>
+
+<a href="https://xat.me/1537517717" target="_blank" class="xat">xat.me</a>
+        </div>
+
+        <!-- SIN IMAGEN (LETRA) -->
+        <div class="friend">
+            <div class="avatar-friend letter">GB</div>
+
+            <div class="data">
+                <div class="nick">Gaby♥</div>
+                <div class="fid">7700077</div>
+            </div>
+
+            <a href="https://xat.me/7700077" target="_blank" class="xat">xat.me</a>
+        </div>
+
+                <!-- SIN IMAGEN (LETRA) -->
+        <div class="friend">
+            <div class="avatar-friend letter">JL</div>
+
+            <div class="data">
+                <div class="nick">Juli♥ </div>
+                <div class="fid">103021</div>
+            </div>
+
+            <a href="https://xat.me/103021" target="_blank" class="xat">xat.me</a>
+        </div>
+    </div>
+
+</div>
+
+<!-- GALERÍA -->
+<div class="tab" id="galeria">
+
+    <div class="gallery-container">
+
+        <!-- carta principal -->
+        <div class="card-main" id="mainCard">
+            <img src="https://xatimg.com/image/grsS9Sc9mchR.png">
+        </div>
+
+        <!-- carrusel -->
+        <div class="carousel" id="carousel">
+            <div class="item"><img src="https://xatimg.com/image/q1wHGSRCMb6h.png"></div>
+            <div class="item"><img src="https://xatimg.com/image/A8206pOzevE5.png"></div>
+            <div class="item"><img src="https://xatimg.com/image/qjOnEkwZVJ3F.png"></div>
+            <div class="item"><img src="https://xatimg.com/image/lu7HFLMYZjSz.png"></div>
+        </div>
+
+    </div>
+
+</div>
+
+    </div>
+</div>
+<div class="player">
+
+<!-- DISCO -->
+<div class="disc">
+    <img id="cover" src="https://xatimg.com/image/rQKnT3qeior8.jpg">
+</div>
+    <!-- INFO -->
+    <div class="song">
+        <span id="artist">Artista</span><br>
+        <small id="title">Canción</small>
+    </div>
+<div class="equalizer" id="equalizer">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+</div>
+    <!-- CONTROLES -->
+    <div class="controls">
+        <button onclick="prev()">⏮</button>
+        <button onclick="togglePlay()" id="playBtn">▶</button>
+        <button onclick="next()">⏭</button>
+    </div>
+
+    <!-- PROGRESO -->
+    <div class="progress-container" onclick="setProgress(event)">
+        <div class="progress" id="progress"></div>
+    </div>
+
+    <audio id="audio"></audio>
+</div>
+
+
+<div class="married-modal" id="marriedModal">
+    <div class="married-content">
+
+        <div class="married-info">
+            <h2>QR♥</h2>
+            <p>ID: 1553193110</p>
+
+<span class="married-phrase">
+    <span id="typingText"></span>
+</span>
+
+            <button class="married-xat" onclick="goXat()">
+                xat.me
+            </button>
+        </div>
+
+        <div class="married-avatar">
+            <img src="https://xatimg.com/image/JVDjG98wVKej.jpg">
+        </div>
+
+    </div>
+</div>
+</div>
+<div id="heartCursor"></div>
+<div id="heartTrail"></div>
+<script>
+const audio = document.getElementById("audio");
+const cover = document.getElementById("cover");
+const title = document.getElementById("title");
+const artist = document.getElementById("artist");
+const progress = document.getElementById("progress");
+const playBtn = document.getElementById("playBtn");
+const player = document.querySelector(".player");
+
+// 🎵 TUS CANCIONES (CAMBIÁ NOMBRES SEGÚN TU CARPETA)
+const songs = [
+    {
+        name: "Layton Greene - Leave Em Alone Lyrics ft. Lil Baby, City Girls.mp3",
+        title: "Leave Em Alone Lyric",
+        artist: "Layton Greene ft. Lil Baby, City Girls,PNB Rock ",
+        cover: "album.jpg"
+    }
+];
+
+let index = 0;
+let playing = false;
+
+// cargar canción
+function loadSong(song){
+    audio.src = "music/" + song.name;
+    cover.src = "music/" + song.cover;
+    title.textContent = song.title;
+    artist.textContent = song.artist;
+}
+
+// play / pause
+function togglePlay(){
+    if(playing){
+        audio.pause();
+        playBtn.textContent = "▶";
+        player.classList.remove("playing");
+    }else{
+        audio.play();
+        playBtn.textContent = "⏸";
+        player.classList.add("playing");
+    }
+    playing = !playing;
+}
+
+// siguiente
+function next(){
+    index++;
+    if(index >= songs.length) index = 0;
+    loadSong(songs[index]);
+    audio.play();
+    player.classList.add("playing");
+    playBtn.textContent = "⏸";
+    playing = true;
+}
+
+// anterior
+function prev(){
+    index--;
+    if(index < 0) index = songs.length - 1;
+    loadSong(songs[index]);
+    audio.play();
+    player.classList.add("playing");
+    playBtn.textContent = "⏸";
+    playing = true;
+}
+
+// progreso automático
+audio.addEventListener("timeupdate", () => {
+    const percent = (audio.currentTime / audio.duration) * 100;
+    progress.style.width = percent + "%";
+});
+
+// click en barra
+function setProgress(e){
+    const width = e.currentTarget.clientWidth;
+    const clickX = e.offsetX;
+    const duration = audio.duration;
+
+    audio.currentTime = (clickX / width) * duration;
+}
+
+// autoplay
+window.addEventListener("load", () => {
+    loadSong(songs[index]);
+
+    audio.volume = 0.5;
+
+    audio.play().then(()=>{
+        playing = true;
+        playBtn.textContent = "⏸";
+        player.classList.add("playing");
+    }).catch(()=>{
+        playBtn.textContent = "▶";
+    });
+});
+
+// siguiente automático
+audio.addEventListener("ended", next);
+
+title.parentElement.classList.add("change");
+
+setTimeout(()=>{
+    title.parentElement.classList.remove("change");
+},300);
+
+const tabs = document.querySelectorAll('.tab');
+const buttons = document.querySelectorAll('.menu span');
+
+buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+
+        // quitar activo de botones
+        buttons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        // ocultar tabs
+        tabs.forEach(t => t.classList.remove('active'));
+
+        // mostrar tab correcto
+        const id = btn.textContent.toLowerCase();
+
+        if(id.includes('perfil')) document.getElementById('perfil').classList.add('active');
+        if(id.includes('amigos')) document.getElementById('amigos').classList.add('active');
+        if(id.includes('galería')) document.getElementById('galeria').classList.add('active');
+    });
+});
+
+const text = "Soy suficiente tal como soy, y no necesito la aprobación de nadie para validar mi existencia";
+const speed = 40; // velocidad (más bajo = más rápido)
+
+let i = 0;
+const typing = document.getElementById("typing");
+
+function writeText(){
+    if(i < text.length){
+        typing.innerHTML += text.charAt(i);
+        i++;
+        setTimeout(writeText, speed);
+    }
+}
+
+// iniciar al cargar
+window.addEventListener("load", writeText);
+
+const mainCard = document.getElementById("mainCard");
+const carousel = document.getElementById("carousel");
+const items = document.querySelectorAll(".item");
+
+let opened = false;
+
+mainCard.addEventListener("click", () => {
+
+    if(opened) return;
+    opened = true;
+
+    // ocultar carta principal
+    mainCard.style.transform = "scale(0)";
+    mainCard.style.opacity = "0";
+
+    carousel.style.display = "block";
+
+    const total = items.length;
+    const radius = 170;
+
+// 🔥 RESET para evitar efecto hacia abajo
+items.forEach(item => {
+    item.style.transition = "none";
+    item.style.transform = "translate(-50%, -50%) rotateY(0deg) translateZ(0px)";
+});
+
+// forzar reflow
+items[0].offsetHeight;
+
+
+// efecto "repartir cartas"
+items.forEach((item, i) => {
+
+    const angle = (360 / total) * i;
+
+    setTimeout(() => {
+        item.style.transition = "0.8s ease";
+        item.style.transform =
+            `translate(-50%, -50%) rotateY(${angle}deg) translateZ(${radius}px)`;
+    }, i * 120);
+
+});
+
+
+// activar giro después de repartir
+setTimeout(() => {
+    carousel.classList.add("active");
+}, total * 120 + 300);
+});
+const wrapper = document.querySelector(".wrapper");
+
+enterBtn.addEventListener("click", () => {
+
+    // animación intro
+    intro.classList.add("hide");
+
+    // mostrar contenido con blur
+    setTimeout(() => {
+        intro.style.display = "none";
+        wrapper.classList.add("show");
+    }, 800);
+
+    // 🔊 reproducir música
+    loadSong(songs[index]);
+
+    audio.volume = 0.5;
+
+    audio.play().then(() => {
+        playing = true;
+        playBtn.textContent = "⏸";
+        player.classList.add("playing");
+    }).catch(() => {
+        playBtn.textContent = "▶";
+    });
+
+});
+
+/* Bloquear clic derecho */
+document.addEventListener('contextmenu', function(e){
+  e.preventDefault();
+});
+
+/* Bloquear selección de texto */
+document.addEventListener('selectstart', function(e){
+  e.preventDefault();
+});
+
+/* Bloquear arrastrar imágenes/texto */
+document.addEventListener('dragstart', function(e){
+  e.preventDefault();
+});
+
+function openMarried(){
+    document.getElementById("marriedModal").classList.add("active");
+    startTyping(); // 👈 ESTO ES LO QUE TE FALTA
+}
+
+function closeMarried(){
+    document.getElementById("marriedModal").classList.remove("active");
+}
+
+/* cerrar clic afuera */
+const marriedModal = document.getElementById("marriedModal");
+
+if(marriedModal){
+    marriedModal.addEventListener("click", function(e){
+        if(e.target === this){
+            closeMarried();
+        }
+    });
+}
+
+function goXat(){
+    window.open("https://xat.me/1553193110", "_blank");
+}
+
+const typingTextContent = "Te quiero...";
+let typingIndex = 0;
+let typingSpeed = 40;
+
+function startTyping(){
+    const el = document.getElementById("typingText");
+    el.innerHTML = "";
+    typingIndex = 0;
+
+    function type(){
+        if(typingIndex < typingTextContent.length){
+            el.innerHTML += typingTextContent.charAt(typingIndex);
+            typingIndex++;
+            setTimeout(type, typingSpeed);
+        }
+    }
+
+    type();
+}
+const cursor = document.getElementById("heartCursor");
+
+document.addEventListener("mousemove", (e) => {
+    cursor.style.top = e.clientY + "px";
+    cursor.style.left = e.clientX + "px";
+
+    createParticle(e.clientX, e.clientY);
+});
+
+/* 💕 partículas */
+function createParticle(x, y){
+    const particle = document.createElement("div");
+    particle.classList.add("heart-particle");
+
+    particle.style.left = x + "px";
+    particle.style.top = y + "px";
+
+    document.body.appendChild(particle);
+
+    setTimeout(() => {
+        particle.remove();
+    }, 800);
+}
+
+/* 💥 efecto click */
+document.addEventListener("click", (e) => {
+    for(let i = 0; i < 6; i++){
+        setTimeout(() => {
+            createParticle(e.clientX + (Math.random()*20-10), e.clientY + (Math.random()*20-10));
+        }, i * 50);
+    }
+});
+</script>
+
+</body>
+
